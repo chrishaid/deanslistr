@@ -111,6 +111,7 @@ deanslist_api <- function(endpoint,
   )
 }
 
+#' @export
 print.deanslist_api <- function(x, ...) {
   cat("<GitHub ", x$path, ">\n", sep = "")
   str(x$content, max.level = 2)

@@ -11,8 +11,15 @@ if(!require(devtools)) install_packages('devtools')
 #> Loading required package: devtools
 
 devtools::install_github('chrishaid/deanslistr')
-#> Skipping install of 'deanslistr' from a github remote, the SHA1 (6de2c8da) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+#> Downloading GitHub repo chrishaid/deanslistr@master
+#> from URL https://api.github.com/repos/chrishaid/deanslistr/zipball/master
+#> Installing deanslistr
+#> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
+#>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
+#>   '/private/var/folders/35/1v00ytm570b11nx2qsq373rm0000gn/T/RtmpoQ70WR/devtoolsdab4448ba0c8/chrishaid-deanslistr-c7d7b12'  \
+#>   --library='/Library/Frameworks/R.framework/Versions/3.3/Resources/library'  \
+#>   --install-tests
+#> 
 ```
 
 Usage is straightforward for version 1 API endpoints. You simply pass
@@ -11425,7 +11432,7 @@ x
 #> 
 #> $response
 #> Response [https://dlacademy.deanslistsoftware.com/api/v1/suspensions?apikey=BaYZkYiHiYM54nvVUNVo4KxZBpKITVgi]
-#>   Date: 2016-11-29 17:42
+#>   Date: 2016-11-29 17:56
 #>   Status: 200
 #>   Content-Type: application/json
 #>   Size: 660 kB
