@@ -11,7 +11,10 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     httr,
-    jsonlite
+    jsonlite,
+    purrr,
+    dplyr,
+    tidyr
 Suggests:
     testthat,
     covr

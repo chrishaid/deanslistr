@@ -2,3 +2,4 @@
 
 S3method(print,deanslist_api)
 export(deanslist_api)
+export(get_suspensions)
