@@ -1,7 +1,7 @@
 Package: deanslistr
 Type: Package
 Title: An R package that wraps DeansList's RESTful HTTP API
-Version: 0.1.0
+Version: 0.1.0.9000
 Author: Chris Haid 
 Maintainer: Chris Haid <chaid@kippchicago.org>
 Description: A simple R wrapper around DeansList's RESTful API. It can be used to download JSON data an 
