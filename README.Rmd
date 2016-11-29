@@ -25,7 +25,7 @@ devtools::install_github('chrishaid/deanslistr')
 ```
 
 Usage is straightforward for version 1 API endpoints.  You simply pass the last portion the endoint path to the `endpoint` paramater of the `deanslist_api()` function, along with your domain and API access key:
-```{r basic}
+```{r v1}
 library(deanslistr)
 
 dla_key <- Sys.getenv("KEY_DLA")
@@ -36,6 +36,20 @@ x <- deanslist_api(endpoint = 'suspensions',
 
 x
 ```
+
+Notice that while the `deanslist_api()` will try to coerce nested JSON to a data frame, some fields may be stored as lists (e.g., `Penalties` and `Actions` in the above response). So pay attion to the content that's returned; you might need to do some more munging with something like `tidyr::unnest()`
+
+The remaing beta endpoints are taken processed on a case by case basis and require passing the `endpoint_version = 'beta'` to the `deanslist_api()`:
+
+```{r beta}
+x <- deanslist_api(endpoint = 'users',
+                   domain = 'dlacademy',
+                   key = dla_key,
+                   endpoint_version = 'beta')
+
+x
+```
+
 
 
 
