@@ -16,7 +16,7 @@ devtools::install_github('chrishaid/deanslistr')
 #> Installing deanslistr
 #> '/Library/Frameworks/R.framework/Resources/bin/R' --no-site-file  \
 #>   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
-#>   '/private/var/folders/35/1v00ytm570b11nx2qsq373rm0000gn/T/RtmpoQ70WR/devtoolsdab4448ba0c8/chrishaid-deanslistr-c7d7b12'  \
+#>   '/private/var/folders/35/1v00ytm570b11nx2qsq373rm0000gn/T/RtmpmBeyX0/devtoolsdb11de15a29/chrishaid-deanslistr-52598c3'  \
 #>   --library='/Library/Frameworks/R.framework/Versions/3.3/Resources/library'  \
 #>   --install-tests
 #> 
@@ -11432,7 +11432,7 @@ x
 #> 
 #> $response
 #> Response [https://dlacademy.deanslistsoftware.com/api/v1/suspensions?apikey=BaYZkYiHiYM54nvVUNVo4KxZBpKITVgi]
-#>   Date: 2016-11-29 17:56
+#>   Date: 2016-11-29 17:55
 #>   Status: 200
 #>   Content-Type: application/json
 #>   Size: 660 kB

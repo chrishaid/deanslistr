@@ -24,7 +24,7 @@ if(!require(devtools)) install_packages('devtools')
 devtools::install_github('chrishaid/deanslistr')
 ```
 
-Usage is straightforward for version 1 API endpoints.  You simply pass 
+Usage is straightforward for version 1 API endpoints.  You simply pass the last portion the endoint path to the `endpoint` paramater of the `deanslist_api()` function, along with your domain and API access key:
 ```{r basic}
 library(deanslistr)
 
