@@ -1,0 +1,43 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+[![Travis-CI Build Status](https://travis-ci.org/chrishaid/deanslistr.svg?branch=master)](https://travis-ci.org/chrishaid/deanslistr)
+[![Coverage Status](https://img.shields.io/codecov/c/github/chrishaid/deanslistr/master.svg)](https://codecov.io/github/chrishaid/deanslistr?branch=master)
+
+
+`deanslistr` is an R package that wraps the DeansList RESTful HTTP API for use in R programming. It is currently under active development by Chris Haid at KIPP Chicago with the hope of releasing it on CRAN. 
+
+Installation is easy:
+```{r install, eval=TRUE}
+if(!require(devtools)) install_packages('devtools')
+
+devtools::install_github('chrishaid/deanslistr')
+```
+
+Usage is straightforward for version 1 API endpoints.  You simply pass 
+```{r basic}
+library(deanslistr)
+
+dla_key <- Sys.getenv("KEY_DLA")
+
+x <- deanslist_api(endpoint = 'suspensions',
+                   domain = 'dlacademy',
+                   key = 'dla_key')
+
+x
+```
+
+
+
+
+

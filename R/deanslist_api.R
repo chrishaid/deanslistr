@@ -107,11 +107,11 @@ deanslist_api <- function(endpoint,
       path = end_point,
       response = resp
     ),
-    class = "github_api"
+    class = "deanslist_api"
   )
 }
 
-print.github_api <- function(x, ...) {
+print.deanslist_api <- function(x, ...) {
   cat("<GitHub ", x$path, ">\n", sep = "")
   str(x$content, max.level = 2)
   invisible(x)
