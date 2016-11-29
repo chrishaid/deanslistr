@@ -39,11 +39,11 @@ is accessed with \code{deanslist_api('behaviors', domain = 'dlacademy', key = 'S
 }
 \examples{
 \dontrun{
-dla_key <- Sys.getenv("KEY_DLA")
+dla_key <- Sys.getenv("KEY_DLA") # Get this key from Deanslist
 
 x <- deanslist_api(endpoint = 'suspensions',
                    domain = 'dlacademy',
-                   key = 'dla_key')
+                   key = dla_key)
 }
 
 }

@@ -32,7 +32,7 @@ dla_key <- Sys.getenv("KEY_DLA")
 
 x <- deanslist_api(endpoint = 'suspensions',
                    domain = 'dlacademy',
-                   key = 'dla_key')
+                   key = dla_key)
 
 x
 ```
