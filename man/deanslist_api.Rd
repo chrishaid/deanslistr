@@ -4,7 +4,7 @@
 \alias{deanslist_api}
 \title{R API for DeansList's RESTful API}
 \usage{
-deanslist_api(endpoint, domain, key, endpoint_version = "v1", ...)
+deanslist_api(endpoint, domain, key, endpoint_version = c("v1", "beta"), ...)
 }
 \arguments{
 \item{endpoint}{the endpoint from which to requrest data.}
@@ -17,10 +17,11 @@ deanslist_api(endpoint, domain, key, endpoint_version = "v1", ...)
 endpoints, for which you should supply the table name (i.e., supply "behavavior" to hit
 the \code{get-behavior-data.php} endpoint).}
 
-\item{...}{optional DeansList paramaters added to query string in the GET request.}
+\item{...}{optional DeansList paramaters added to query string in the GET request (e.g. sdt and
+edt for start and end dates).}
 }
 \value{
-a deanslistr object, which is a list contain the response, endpoint path,
+a deanslistr object, which is a list containing the response, endpoint path,
 and returned content
 }
 \description{

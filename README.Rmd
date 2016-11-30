@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
 
 `deanslistr` is an R package that wraps the DeansList RESTful HTTP API for use in R programming. It is currently under active development by Chris Haid at KIPP Chicago with the hope of releasing it on CRAN. 
 
+## Installation
+
 Installation is easy:
 ```{r install, eval=TRUE}
 if(!require(devtools)) install_packages('devtools')
@@ -24,6 +26,7 @@ if(!require(devtools)) install_packages('devtools')
 devtools::install_github('chrishaid/deanslistr')
 ```
 
+## Basic Usage
 Usage is straightforward for version 1 API endpoints.  You simply pass the last portion the endoint path to the `endpoint` paramater of the `deanslist_api()` function, along with your domain and API access key:
 ```{r v1}
 library(deanslistr)
@@ -50,6 +53,15 @@ x <- deanslist_api(endpoint = 'users',
 x
 ```
 
+## Convenience Wrappers
+
+The package has some convenience functions that wrap `deanslist_api()` for specific endpoints. These wrappers all start with a `get_` prefix.  The first (and curruntly only) wrapper is `get_suspensions`.  The onus for these functions is to facilitate calling `deanslist_api` for multiple schools.  If you have six schools you will need to provide 6 keys to `deanslist_api`, one-at-a-time. the `get_` functions can take take multiple keys via the `key_list` parameter. Better still, you can store keys in `.Renviron` file, which will be sourced when R starts (if saved in a users home directory).  The keys' variables need to fit hte pattern of `DL_KEY_` where the `SCHOOL` bit can be any test string. `get_` wrappers, if not passed a list of keys explicitely, will look to your environment variables for keys stored in the `DL_KEY_` variables and requirest the data from DeansList and (try to) store the returned data as a list of data frames.  This list of data frames is best handled with `purrr` or other `tidyverse` functions. 
+
+```{r eval=FALSE}
+x <- get_suspensions(domain = 'dlacademy`)
+
+
+```
 
 
 

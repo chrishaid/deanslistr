@@ -6,7 +6,8 @@
 #' @param endpoint_version the endpoint verrsion.  Default is "v1".  Anything else implements "beta"
 #' endpoints, for which you should supply the table name (i.e., supply "behavavior" to hit
 #' the \code{get-behavior-data.php} endpoint).
-#' @param ... optional DeansList paramaters added to query string in the GET request.
+#' @param ... optional DeansList paramaters added to query string in the GET request (e.g. sdt and
+#' edt for start and end dates).
 #'
 #' @details This is a workhourse function that wraps the HTTP RESTful API that DeansList has implemented.
 #' You will need your school's/district's/network's domain (i.e., DOMAIN in \code{https://DOMAIN.deanslistsoftware.com})
@@ -18,7 +19,7 @@
 #' simply require the component of the end point that unique identifies (i.e., the table name).  So the \code{get-behavior-data.php} endpoint
 #' is accessed with \code{deanslist_api('behaviors', domain = 'dlacademy', key = 'SUPER_SECRET_KEY', endpoint_version = 'beta').}
 #'
-#' @return a deanslistr object, which is a list contain the response, endpoint path,
+#' @return a deanslistr object, which is a list containing the response, endpoint path,
 #' and returned content
 #'
 #' @export
@@ -35,8 +36,10 @@
 deanslist_api <- function(endpoint,
                           domain,
                           key,
-                          endpoint_version = "v1",
+                          endpoint_version = c("v1", "beta"),
                           ...){
+
+  if (missing(endpoint_version)) endpoint_version <- "v1"
 
   if (endpoint_version == "v1") {
     end_point <- sprintf('api/v1/%s', endpoint)
@@ -79,26 +82,17 @@ deanslist_api <- function(endpoint,
                     query = query_list,
                     ua
                     )
-  #if (httr::http_type(resp) != "application/json") {
-  #  stop("API did not return json", call. = FALSE)
-  #}
 
+  # response error checking
   httr::stop_for_status(resp)
 
+  if(endpoint != "pointbank") {
+    if (httr::http_type(resp) != "application/json") {
+      stop("API did not return json", call. = FALSE)
+    }
+  }
 
   parsed <- jsonlite::fromJSON(httr::content(resp, "text"), flatten = TRUE)
-
-  # if (http_error(resp)) {
-  #   stop(
-  #     sprintf(
-  #       "DeansList API request failed [%s]\n%s\n<%s>",
-  #       status_code(resp),
-  #       parsed$message,
-  #       parsed$documentation_url
-  #     ),
-  #     call. = FALSE
-  #   )
-  # }
 
 
   structure(
