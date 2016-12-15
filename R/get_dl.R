@@ -36,7 +36,8 @@ get_suspensions <- function(key_list,
   out <- purrr::map2(.x = resp_list,
                         .y = names(resp_list),
                         .f = ~.x$content$data %>%
-                                mutate(school_name = .y))
+                                dplyr::as_data_frame() %>%
+                                dplyr::mutate(school_name = .y))
 
   out
 
