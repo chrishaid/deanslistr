@@ -32,14 +32,29 @@ get_suspensions <- function(key_list,
   resp_list <- key_list %>%
     purrr::map( ~ deanslist_api(key = ., endpoint = "suspensions", ...))
 
+  ok <- resp_list %>% purrr::map_lgl(~get_row_count(.)>0)
 
-  out <- purrr::map2(.x = resp_list,
-                        .y = names(resp_list),
+  resp_list_ok <- resp_list[ok]
+
+
+  out <- purrr::map2(.x = resp_list_ok,
+                        .y = names(resp_list_ok),
                         .f = ~.x$content$data %>%
                                 dplyr::as_data_frame() %>%
                                 dplyr::mutate(school_name = .y))
 
   out
 
+}
+
+
+
+#' get's rowcount from returned deanslist objects
+#'
+#' @param x object with content slot returned from deanslist
+#'
+#' @return
+get_row_count <- function(x) {
+  x$content$rowcount
 }
 
