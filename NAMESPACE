@@ -2,6 +2,10 @@
 
 S3method(print,deanslist_api)
 export(deanslist_api)
+export(get_incidents)
+export(get_referrals)
+export(get_students)
 export(get_suspensions)
+export(get_users)
 importFrom(dplyr,"%>%")
 importFrom(utils,str)
