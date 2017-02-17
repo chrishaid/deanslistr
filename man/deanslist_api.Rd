@@ -4,7 +4,8 @@
 \alias{deanslist_api}
 \title{R API for DeansList's RESTful API}
 \usage{
-deanslist_api(endpoint, domain, key, endpoint_version = c("v1", "beta"), ...)
+deanslist_api(endpoint, domain, key, endpoint_version = c("v1", "beta"),
+  parsed = TRUE, ...)
 }
 \arguments{
 \item{endpoint}{the endpoint from which to requrest data.}
@@ -19,6 +20,9 @@ the \code{get-behavior-data.php} endpoint).}
 
 \item{...}{optional DeansList paramaters added to query string in the GET request (e.g. sdt and
 edt for start and end dates).}
+
+\item{parse}{whether the response content should be parsed to a (possibly flattened) data.frame (`TRUE`) or
+the whether the raw JSON us returned (`FALSE`).}
 }
 \value{
 a deanslistr object, which is a list containing the response, endpoint path,

@@ -6,6 +6,8 @@
 #' @param endpoint_version the endpoint verrsion.  Default is "v1".  Anything else implements "beta"
 #' endpoints, for which you should supply the table name (i.e., supply "behavavior" to hit
 #' the \code{get-behavior-data.php} endpoint).
+#' @param parse whether the response content should be parsed to a (possibly flattened) data.frame (`TRUE`) or
+#' the whether the raw JSON us returned (`FALSE`).
 #' @param ... optional DeansList paramaters added to query string in the GET request (e.g. sdt and
 #' edt for start and end dates).
 #'
@@ -37,6 +39,7 @@ deanslist_api <- function(endpoint,
                           domain,
                           key,
                           endpoint_version = c("v1", "beta"),
+                          parsed = TRUE,
                           ...){
 
   if (missing(endpoint_version)) endpoint_version <- "v1"
@@ -92,13 +95,17 @@ deanslist_api <- function(endpoint,
     }
   }
 
-  parsed <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"),
-                               flatten = TRUE)
+  if (parsed) {
+    resp_content <- jsonlite::fromJSON(httr::content(resp, "text", encoding = "UTF-8"),
+                                       flatten = TRUE)
+  } else {
+    resp_content <- httr::content(resp, "text", encoding = "UTF-8")
+  }
 
 
   structure(
     list(
-      content = parsed,
+      content = resp_content,
       path = end_point,
       response = resp
     ),
