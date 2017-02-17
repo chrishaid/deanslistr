@@ -30,18 +30,39 @@ get_suspensions <- function(key_list,
   }
 
   resp_list <- key_list %>%
-    purrr::map( ~ deanslist_api(key = ., endpoint = "referrals", ...))
+    purrr::map( ~ deanslist_api(key = ., endpoint = "suspensions", ...))
 
-  ok <- resp_list %>% purrr::map_lgl(~get_row_count(.)>0)
-
-  resp_list_ok <- resp_list[ok]
+  contents_are_dfs <- resp_list %>% purrr::map_lgl(~is.list(.$content))
 
 
-  out <- purrr::map2(.x = resp_list_ok,
-                        .y = names(resp_list_ok),
-                        .f = ~.x$content$data %>%
-                                dplyr::as_data_frame() %>%
-                                dplyr::mutate(school_name = .y))
+  if(all(contents_are_dfs)){
+    ok <- resp_list %>% purrr::map_lgl(~get_row_count(.)>0)
+
+    resp_list_ok <- resp_list[ok]
+
+
+    out <- purrr::map2(.x = resp_list_ok,
+                       .y = names(resp_list_ok),
+                       .f = ~.x$content$data %>%
+                         dplyr::as_data_frame() %>%
+                         dplyr::mutate(school_name = .y))
+  } else {
+    ok <- resp_list %>% purrr::map_lgl(~jsonlite::fromJSON(.$content)$rowcount >0)
+
+    resp_list_ok <- resp_list[ok]
+    out <- purrr::map2(.x = resp_list_ok,
+                       .y = names(resp_list_ok),
+                       .f = ~{
+                         content <- .x$content
+                         attr(content, "school_name") <- .y
+                         content
+                         }
+                          )
+
+
+  }
+
+
 
   out
 
@@ -303,6 +324,58 @@ get_row_count <- function(x) {
 }
 
 
+#' get_* consturctor function
+#'
+#' @param endpoint name of DeansList endpoint to construct function for
+#' @param keylist  either a named list or named character vector of DeansLists API keys for each school
+#' to accdess suspesions data for your school(s).  Alternatively you can add keys to .Renviron variables, which must start with \code{DL_KEY_}
+#' in order to be recognized.
+#' @param ... parameteres like domain passed on onto \code{\link{deanslist_api}}
+#'
+get_ <- function(endpoint, key_list, ...) {
+  out <- function(key_list, ...){
+    if (missing(key_list)) {
+      key_names <- grep("DL_KEY_", names(Sys.getenv(names = TRUE)), value = TRUE)
+      key_list <- Sys.getenv(key_names)
 
+    }
+
+    resp_list <- key_list %>%
+      purrr::map( ~ deanslist_api(key = ., endpoint = endpoint, ...))
+
+    contents_are_dfs <- resp_list %>% purrr::map_lgl(~is.list(.$content))
+
+
+    if(all(contents_are_dfs)){
+      ok <- resp_list %>% purrr::map_lgl(~get_row_count(.)>0)
+
+      resp_list_ok <- resp_list[ok]
+
+
+      out <- purrr::map2(.x = resp_list_ok,
+                         .y = names(resp_list_ok),
+                         .f = ~.x$content$data %>%
+                           dplyr::as_data_frame() %>%
+                           dplyr::mutate(school_name = .y))
+    } else {
+      ok <- resp_list %>% purrr::map_lgl(~jsonlite::fromJSON(.$content)$rowcount >0)
+
+      resp_list_ok <- resp_list[ok]
+      out <- purrr::map2(.x = resp_list_ok,
+                         .y = names(resp_list_ok),
+                         .f = ~{
+                           content <- .x$content
+                           attr(content, "school_name") <- .y
+                           content
+                         }
+      )
+    }
+  }
+
+out
+}
+
+
+#get_suspensions_2 <- get_("suspensions", domain="kippchicago")
 
 
