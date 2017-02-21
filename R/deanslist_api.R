@@ -67,6 +67,10 @@ deanslist_api <- function(endpoint,
     end_point <- 'api/beta/export/get-roster-assignments.php'
   }
 
+  if (endpoint == "behaviors") {
+    end_point <- 'api/beta/export/get-behavior-data.php'
+  }
+
 
   url <- httr::modify_url(url = sprintf('https://%s.deanslistsoftware.com/', domain),
                           path = end_point

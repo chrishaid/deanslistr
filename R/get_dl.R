@@ -179,7 +179,7 @@ get_students <- get_("students")
 #' @return a data.frame or list of data.frames (if multiple keys passed) with DeansList incidents data
 #' @export
 #'
-get_behaviors <- get_("incidents", endpoint_versions = "beta")
+get_behaviors <- get_("behaviors")
 
 #' Wrapper around \code{\link{deanslist_api}} to pull users data for multiple schools
 #'
