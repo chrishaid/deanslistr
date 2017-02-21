@@ -157,7 +157,7 @@ get_incidents <- get_("incidents")
 #'
 get_students <- get_("students")
 
-#' Wrapper around \code{\link{deanslist_api}} to pull incidents data for multiple schools
+#' Wrapper around \code{\link{deanslist_api}} to pull behavior data for multiple schools
 #'
 #' @param key_list either a named list or named character vector of DeansLists API keys for each school
 #' to accdess suspesions data for your school(s).  Alternatively you can add keys to .Renviron variables, which must start with \code{DL_KEY_}
@@ -179,7 +179,7 @@ get_students <- get_("students")
 #' @return a data.frame or list of data.frames (if multiple keys passed) with DeansList incidents data
 #' @export
 #'
-get_incidents <- get_("incidents")
+get_behaviors <- get_("incidents", endpoint_versions = "beta")
 
 #' Wrapper around \code{\link{deanslist_api}} to pull users data for multiple schools
 #'
