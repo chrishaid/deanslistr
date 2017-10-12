@@ -16,8 +16,8 @@ get_row_count <- function(x) {
 #' @param ... parameteres like domain passed on onto \code{\link{deanslist_api}}
 #'
 #' @export
-get_ <- function(endpoint, key_list, ...) {
-  out <- function(key_list, ...){
+get_ <- function(endpoint, key_list, domain, ...) {
+  out <- function(key_list, domain, ...){
     if (missing(key_list)) {
       key_names <- grep("DL_KEY_", names(Sys.getenv(names = TRUE)), value = TRUE)
       key_list <- Sys.getenv(key_names)
@@ -25,7 +25,7 @@ get_ <- function(endpoint, key_list, ...) {
     }
 
     resp_list <- key_list %>%
-      purrr::map( ~ deanslist_api(key = ., endpoint = endpoint, ...))
+      purrr::map( ~ deanslist_api(key = ., endpoint = endpoint, domain=domain), ...)
 
     contents_are_dfs <- resp_list %>% purrr::map_lgl(~is.list(.$content))
 

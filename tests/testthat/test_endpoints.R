@@ -144,7 +144,7 @@ test_that("lists endpoints returns data", {
                      endpoint_version = 'v1')
 
   expect_s3_class(x, "deanslist_api")
-  expect_is(x$content$Sessions, "list")
+  expect_is(x$content$Sessions, "character")
 })
 
 test_that("terms endpoint returns data", {
@@ -194,7 +194,7 @@ test_that("rosters endpoint returns data", {
   expect_is(x$content$data, "data.frame")
 
   roster_id <- x$content$data$RosterID
-  x <- deanslist_api(endpoint = sprintf('rosters/%s', roster_id[[1]]),
+  x <- deanslist_api(endpoint = sprintf('rosters/%s', roster_id[[2]]),
                      domain = 'dlacademy',
                      key = dla_key,
                      endpoint_version = 'v1')
