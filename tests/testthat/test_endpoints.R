@@ -144,7 +144,7 @@ test_that("lists endpoints returns data", {
                      endpoint_version = 'v1')
 
   expect_s3_class(x, "deanslist_api")
-  expect_is(x$content$Sessions, "character")
+  expect_is(x$content$Sessions, "data.frame")
 })
 
 test_that("terms endpoint returns data", {

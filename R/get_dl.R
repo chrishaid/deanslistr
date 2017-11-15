@@ -24,8 +24,12 @@ get_ <- function(endpoint, key_list, domain, ...) {
 
     }
 
+    arg_list <- list(...) %>%
+      purrr::list_modify(endpoint = endpoint, domain = domain)
+
+
     resp_list <- key_list %>%
-      purrr::map( ~ deanslist_api(key = ., endpoint = endpoint, domain=domain), ...)
+      purrr::map( ~ purrr::invoke(deanslist_api, key = ., arg_list))
 
     contents_are_dfs <- resp_list %>% purrr::map_lgl(~is.list(.$content))
 
